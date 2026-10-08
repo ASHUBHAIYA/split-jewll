@@ -14,3 +14,5 @@ coverage/
 # local Cloudflare state and built binaries 
 .wrangler/
 .dev.vars
+
+!.env.production
