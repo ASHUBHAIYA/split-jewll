@@ -1,0 +1,26 @@
+# Deploy:  npx wrangler deploy      (see README.md in this folder)
+name = "atits-auth"                 # keep the same name so your workers.dev URL does not change
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+# Browser origin(s) allowed to call the Worker. Comma-separated, e.g. "https://app.example.com,http://localhost:3000".
+# Leave "*" only while testing.
+ALLOWED_ORIGIN = "*"
+
+[[d1_databases]]
+binding = "DATABASE"                # must stay "DATABASE"
+database_name = "jwellery_db"
+database_id = "PASTE-YOUR-D1-DATABASE-ID-HERE"
+
+[[durable_objects.bindings]]
+name = "RELAY_ROOM"
+class_name = "RelayRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelayRoom"]  # SQLite-backed Durable Objects (available on the free plan)
+
+# Optional (recommended): keep the admin PIN out of the database entirely.
+#   npx wrangler secret put ADMIN_PIN
+# When this secret exists it is the only admin PIN and the in-app "change PIN" is disabled.

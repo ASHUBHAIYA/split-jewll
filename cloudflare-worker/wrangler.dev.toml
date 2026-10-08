@@ -1,0 +1,21 @@
+# DEV deployment: separate Worker name, so production (atits-auth) is not touched.
+#   npx wrangler deploy -c wrangler.dev.toml
+name = "atits-auth-dev"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"            # fine for dev; set your real site origin(s) for production
+
+[[d1_databases]]
+binding = "DATABASE"
+database_name = "jwellery_db"
+database_id = "000eef5a-5b12-4499-b552-8a95e441c4ff"
+
+[[durable_objects.bindings]]
+name = "RELAY_ROOM"
+class_name = "RelayRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RelayRoom"]
