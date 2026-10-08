@@ -11,6 +11,6 @@ coverage/
 !.env.example
 .env local
 
-# local Cloudflare state and built binaries
+# local Cloudflare state and built binaries 
 .wrangler/
 .dev.vars
